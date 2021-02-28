@@ -8,6 +8,7 @@ const cors = require('cors')
 
 const loginService = require('./services/loginService')
 const fileService = require('./services/fileService')
+const signupService = require('./services/signupService')
 //UUID
 const { v4: uuidv4 } = require('uuid');
 // create an instance of express
@@ -84,9 +85,8 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
    console.log(req.body)
    
    //TEST WRITE
-    const newUser = fileService.writeFileContents('../data/users.json', credentials)
-    console.log(newUser)
-   
+    let valid = signupService.validate(credentials)
+    //let newUser = fileService.validate(credentials)
    res.redirect('login')
    res.end()
 })
