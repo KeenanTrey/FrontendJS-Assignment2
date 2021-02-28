@@ -1,8 +1,7 @@
 require('dotenv').config()
-//import the express module
 const express = require('express');
+
 const validator = require('express-validator');
-// import the path utils from Node.
 const path = require('path')
 const cors = require('cors')
 
@@ -16,24 +15,16 @@ const app = express()
  
 const PORT =  process.env.PORT || 5000 
 
- 
-// Middleware For Cross Origin Resource SHaring
+
 app.use(cors())
 
-//To get access to the name value pairs send in the message Body of POST Request.
+
  app.use(express.urlencoded({extended:true}))
  app.use(express.json())
 
-// Setup Template Engine
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, './views'))
- 
 
-
-//Middleware Serving Static Pages from client directory
-// second parameter is an configuration object of how we want
-// the static file server to run.
- 
 app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 'htm']})
 );
 
@@ -76,14 +67,12 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
 
 //  SIGNUP
  app.post('/signup', (req, res)=>{
-  // POST name value pairs in body request
   const credentials = {
     username: req.body.fullname,
     email:req.body.email,
     password:req.body.password
    }
    console.log(req.body)
-   
    //TEST WRITE
     let valid = signupService.validate(credentials)
     //let newUser = fileService.validate(credentials)

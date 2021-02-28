@@ -20,9 +20,6 @@ exports.writeFileContents = (filePath, data) =>{
     
 }
 
-exports.validate = (credentials) => {
-    let valid = writeFileContents('../data/users.json', credentials)
-}
 
  
 
