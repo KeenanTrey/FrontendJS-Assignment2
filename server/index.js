@@ -7,7 +7,6 @@ const cors = require('cors')
 
 const loginService = require('./services/loginService')
 const fileService = require('./services/fileService')
-const signupService = require('./services/signupService')
 //UUID
 const { v4: uuidv4 } = require('uuid');
 
