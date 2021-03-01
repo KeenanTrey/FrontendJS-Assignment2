@@ -5,10 +5,11 @@ exports.getFileContents = (filePath)=>{
    let fileContents = JSON.parse(fs.readFileSync(path.join(__dirname, filePath)))
    console.log(fileContents)
    return fileContents
-   
 }
 
 exports.writeFileContents = (filePath, data) =>{
+    //To allow for writing to users.json
+    // Pull current contents
     let fileContents = exports.getFileContents(filePath)
     console.log(fileContents)
     fileContents.push(data)

@@ -1,18 +1,20 @@
 const fileService = require('./fileService')
  
 exports.authenticate = (credential)=>{
- 
    const {email, password} = {...credential}
    const users = fileService.getFileContents('../data/users.json');
    console.log(users)
+  //  Validate 
  const authUser =  users.reduce((authObj, user)=>{
-     
+    //  Check Email
     if(user.email === email){
       authObj.validEmail = true;
     }
+    // Check password
     if(user.password === password){
       authObj.validPassword = true;
     }
+    // Assign user a value; default null
     if(authObj.validEmail===true && authObj.validPassword===true){
         authObj.user = user;
     }

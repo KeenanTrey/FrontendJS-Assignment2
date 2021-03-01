@@ -1,10 +1,10 @@
 require('dotenv').config()
 const express = require('express');
-
+//express validator import
 const { body, validationResult } = require('express-validator');
 const path = require('path')
 const cors = require('cors')
-
+//Call both services
 const loginService = require('./services/loginService')
 const fileService = require('./services/fileService')
 //UUID
@@ -14,13 +14,13 @@ const app = express()
  
 const PORT =  process.env.PORT || 5000 
 
-
+//cross orgin resource sharing
 app.use(cors())
-
 
  app.use(express.urlencoded({extended:true}))
  app.use(express.json())
 
+ //Set EJS
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, './views'))
 
@@ -43,6 +43,7 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
 })
 
  app.post('/login', (req, res)=>{
+   //Pull info in body
    const credentials = {
      email:req.body.email,
      password:req.body.password
@@ -63,12 +64,15 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
     res.end()
  })
 
-//  SIGNUP
+//  SIGNUP, express validation in app.POST
  app.post('/signup', body('fullname').notEmpty(), body('email').isEmail(), body('password').notEmpty(), (req, res)=>{
+   //Create new uuid
    let newUId = uuidv4()
-
+  
+   //if no errors are reported
    const errors = validationResult(req);
    if (errors.isEmpty()) {
+    //  Pull info and add new uuid to the new user
     const credentials = {
       UUID: newUId,
       username: req.body.fullname,
@@ -76,12 +80,14 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
       password:req.body.password
      }
      console.log(req.body)
-  
+     //Write to file
      let valid = fileService.writeFileContents('../data/users.json', credentials)
+     //Redirect to login
      res.redirect('login')
      res.end()
    }
    else {
+     //If Errors are present then this is called
     return res.status(400).json({ errors: errors.array() });
    }
 })
