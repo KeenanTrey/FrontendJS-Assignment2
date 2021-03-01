@@ -1,19 +1,7 @@
-# Employee Manager Day 6
+# Keenan Philip Assignment 2
 
-### EJS TASKS
-- Setup EJS with Node and Express
-- Add the dashboard and the login to the views folder.
-- Add slots to the login template for the password and email warnings.
-- Send the template using res.render(template, {data})
-- Update the index.html page anchor elements to point to the login get route.
-
-### Login Service Returns User Object
-- If value isValidUser true redirect to dashboard.
-- Set cookie session variable to true.
-
-### Login Service Returns NULL
-- Render login template and add warnings messages.
-- Adding client side javascript to template.
+### Overview
+Assignment to demonstrate custom apis and processing POST data to register a user as well as serving protected routes. Login route renders login template and add warnings messages. Sign up is validated by express-validation and required tags on the form itself. If the registration is valid the new user is written to the users.json with a unique UUID for each user and redirect to the login screen. The user can then sign in user the username and password provided to login. If it is a valid login combination the user is redirected to the dashboard by the system
 
 
  

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 
-const validator = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const path = require('path')
 const cors = require('cors')
 
@@ -10,7 +10,7 @@ const fileService = require('./services/fileService')
 const signupService = require('./services/signupService')
 //UUID
 const { v4: uuidv4 } = require('uuid');
-// create an instance of express
+
 const app = express()
  
 const PORT =  process.env.PORT || 5000 
@@ -44,7 +44,6 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
 })
 
  app.post('/login', (req, res)=>{
-   // POST name value pairs in body request
    const credentials = {
      email:req.body.email,
      password:req.body.password
@@ -66,18 +65,26 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
  })
 
 //  SIGNUP
- app.post('/signup', (req, res)=>{
-  const credentials = {
-    username: req.body.fullname,
-    email:req.body.email,
-    password:req.body.password
+ app.post('/signup', body('fullname').notEmpty(), body('email').isEmail(), body('password').notEmpty(), (req, res)=>{
+   let newUId = uuidv4()
+
+   const errors = validationResult(req);
+   if (errors.isEmpty()) {
+    const credentials = {
+      UUID: newUId,
+      username: req.body.fullname,
+      email:req.body.email,
+      password:req.body.password
+     }
+     console.log(req.body)
+  
+     let valid = fileService.writeFileContents('../data/users.json', credentials)
+     res.redirect('login')
+     res.end()
    }
-   console.log(req.body)
-   //TEST WRITE
-    let valid = signupService.validate(credentials)
-    //let newUser = fileService.validate(credentials)
-   res.redirect('login')
-   res.end()
+   else {
+    return res.status(400).json({ errors: errors.array() });
+   }
 })
 
 app.use((req, res) => {
