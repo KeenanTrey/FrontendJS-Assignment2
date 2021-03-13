@@ -7,6 +7,7 @@ const cors = require('cors')
 //Call both services
 const loginService = require('./services/loginService')
 const fileService = require('./services/fileService')
+const departmentRoutes = require('./routes/departmentRouter')
 //UUID
 const { v4: uuidv4 } = require('uuid');
 
@@ -19,6 +20,7 @@ app.use(cors())
 
  app.use(express.urlencoded({extended:true}))
  app.use(express.json())
+ app.use(express.raw())
 
  //Set EJS
 app.set('view engine', 'ejs')
@@ -91,6 +93,15 @@ app.use(express.static(path.join(__dirname, "../client"), {extensions: ["html", 
     return res.status(400).json({ errors: errors.array() });
    }
 })
+
+app.get('/users', (req, res)=>{
+  // read using the file service
+  // return as json
+  const data = fileService.readFile('../data/user.json')
+  res.json(data)
+})
+
+app.use('/api/departments', departmentRoutes())
 
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "../client/404.html"));
