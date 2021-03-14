@@ -15,8 +15,6 @@ const deleteRequest = async (url)=>{
 }
 
 const putRequest = async(url,data)=>{
-
-   // Snippet #6
    const requestHeader = new Headers();
 
    requestHeader.append("Content-Type", "application/json");
