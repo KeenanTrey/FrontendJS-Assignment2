@@ -1,4 +1,4 @@
-import ejs from 'ejs'
+import ejs from '../../_snowpack/pkg/ejs.js'
 
 
 
