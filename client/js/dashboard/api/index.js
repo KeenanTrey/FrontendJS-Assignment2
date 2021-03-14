@@ -2,14 +2,14 @@
 // developmentUrl = 'http://localhost:5000/
 
 const api = {
-    getAllDepartments: 'https://employee-manager-dashboard.herokuapp.com/api/departments/',
+    getAllDepartments: 'https://assign2-keenanphilip.herokuapp.com//api/departments/',
     // Snippet #5
-    updateEmployee: `https://employee-manager-dashboard.herokuapp.com/api/departments/employee/update`,
+    updateEmployee: `https://assign2-keenanphilip.herokuapp.com//api/departments/employee/update`,
     getDepartment: (name)=>{
-        return `https://employee-manager-dashboard.herokuapp.com/api/departments/name/${name}`
+        return `https://assign2-keenanphilip.herokuapp.com//api/departments/name/${name}`
     },
     deleteEmployee: (id)=>{
-        return `https://employee-manager-dashboard.herokuapp.com/api/departments/employee/id/${id}` 
+        return `https://assign2-keenanphilip.herokuapp.com//api/departments/employee/id/${id}` 
     }
 }
 
